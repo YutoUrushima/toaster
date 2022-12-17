@@ -1,21 +1,7 @@
-from plyer import notification
+import toaster
 
-notification.notify(
-  title="通知バナー",
-  message="メッセージ",
-  app_name="アプリ名",
-  app_icon="C:\office\office.ico",
-  timeout=10
-)
+def main():
+  toast = toaster.Toaster()
 
-# def main():
-#   notification.notify(
-#     title="通知バナー",
-#     message="メッセージ",
-#     app_name="アプリ名",
-#     app_icon="C:\office\office.ico",
-#     timeout=10
-#   )
-
-# if __name__ == "__main__":
-#   main()
+if __name__ == "__main__":
+  main()
