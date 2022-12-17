@@ -5,9 +5,8 @@ class Toaster:
     self.name = name
     self.time = time
     self.ttl = ttl
-    pass
   
-  def register():
+  def register(self):
     # register to MongoDB
     print('registerd!')
   
