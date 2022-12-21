@@ -1,6 +1,7 @@
 import toaster
 import time
 import datetime
+import schedule
 
 INTERVAL = 1 * 100 * 60 # 1 minute
 
@@ -21,6 +22,17 @@ def main():
       break
     else:
       time.sleep(INTERVAL)
+
+# def check():
+#   if datetime.datetime() == toast.time:
+#     toast.call()
+#   print("executed")
+
+# schedule.every(1).minutes.do(check)
+
+# while True:
+#   schedule.run_pending()
+#   sleep(1)
 
 if __name__ == "__main__":
   main()
