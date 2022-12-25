@@ -1,4 +1,4 @@
-import toaster
+from toaster import Toaster
 import time
 import datetime
 import schedule
@@ -14,11 +14,9 @@ def main(redis):
     ttl = input("Enter time for the toast to stay alive: ")
 
     # Create an instance of the Toaster class based on the input information.
-    toast = toaster.Toaster(name, notification_time, ttl, redis)
+    toast = Toaster(name, notification_time, ttl, redis)
     toast.register()
-    print(f"Request accepted! Toast name: {toast.name}, Time: {toast.time}")
-
-    print(toast.fetch("toast").decode("utf-8"))
+    print(f"Request accepted! Toast name: {name}, Time: {notification_time}")
 
     # Every minute, check the current time and execute a toast notification if it is the same as the set time.
     # while True:
@@ -28,17 +26,6 @@ def main(redis):
     #     else:
     #         time.sleep(INTERVAL)
 
-
-# def check():
-#   if datetime.datetime() == toast.time:
-#     toast.call()
-#   print("executed")
-
-# schedule.every(1).minutes.do(check)
-
-# while True:
-#   schedule.run_pending()
-#   sleep(1)
 
 if __name__ == "__main__":
     redis = redis.Redis(host="localhost", port=6379, db=0)

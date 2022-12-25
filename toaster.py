@@ -9,13 +9,15 @@ DATETIME_REGEXP = (
 
 
 class Toaster:
+    redis = None
+
     def __init__(self, name, time, ttl, redis):
         if not re.fullmatch(DATETIME_REGEXP, time):
             raise
         self.name = name
         self.time = time
         self.ttl = ttl
-        self.redis = redis
+        Toaster.redis = self.redis = redis
 
     def register(self):
         self.redis.hset(f"Toast:{self.name}", "name", self.name)
@@ -23,8 +25,8 @@ class Toaster:
         self.redis.hset(f"Toast:{self.name}", "ttl", self.ttl)
 
     @classmethod
-    def fetch(self, name):
-        return self.redis.get(f"Toast:{name}")
+    def fetch(cls, name, key):
+        return cls.redis.hget(f"Toast:{name}", key)
 
     @classmethod
     def call(self):
