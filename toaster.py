@@ -29,5 +29,10 @@ class Toaster:
         return cls.redis.hget(f"Toast:{name}", key)
 
     @classmethod
+    def search(cls):
+        # cls.redis.hscan
+        print("this")
+
+    @classmethod
     def call(self):
         notification.notify(title="toaster", message=self.name, timeout=self.ttl)

@@ -1,7 +1,4 @@
 from toaster import Toaster
-import time
-import datetime
-import schedule
 import redis
 
 INTERVAL = 1 * 100 * 60  # 1 minute
@@ -17,14 +14,6 @@ def main(redis):
     toast = Toaster(name, notification_time, ttl, redis)
     toast.register()
     print(f"Request accepted! Toast name: {name}, Time: {notification_time}")
-
-    # Every minute, check the current time and execute a toast notification if it is the same as the set time.
-    # while True:
-    #     if datetime.datetime() == toast.time:
-    #         toast.call()
-    #         break
-    #     else:
-    #         time.sleep(INTERVAL)
 
 
 if __name__ == "__main__":
