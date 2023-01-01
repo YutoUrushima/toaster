@@ -29,9 +29,14 @@ class Toaster:
         return cls.redis.hget(f"Toast:{name}", key)
 
     @classmethod
-    def search(cls):
-        # cls.redis.hscan
-        print("this")
+    def search(cls, now):
+        corresponding_toastors = []
+        all_keys = cls.redis.keys
+        for key in all_keys:
+            time = cls.redis.hget(key, "time")
+            if time == now:
+                corresponding_toastors.append(key)
+        return corresponding_toastors
 
     @classmethod
     def call(self):
