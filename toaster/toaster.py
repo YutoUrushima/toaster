@@ -14,8 +14,8 @@ class Toaster:
     redis = None
 
     def __init__(self, name, time, ttl, redis):
-        # if not re.fullmatch(DATETIME_REGEXP, time):
-        #     raise
+        if not re.fullmatch(DATETIME_REGEXP, time):
+            raise
         self.name = name
         self.time = time
         self.ttl = ttl
@@ -54,7 +54,3 @@ class Toaster:
     @classmethod
     def call(self):
         notification.notify(title="toaster", message=self.name, timeout=self.ttl)
-
-
-instance = Toaster("name", "2022", "20", redis.Redis(host="localhost", port=6379, db=0))
-print(instance.search())
