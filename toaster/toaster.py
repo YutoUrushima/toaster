@@ -1,5 +1,6 @@
 from plyer import notification
 import re
+import redis
 
 DATETIME_REGEXP = (
     r"\d{4}\s(0[1-9]|1[0-2])\s(0[1-9]|[12]\d|3[01])\s(0[1-9]|1\d|2[0-3])\s[0-5]\d"
@@ -12,8 +13,8 @@ class Toaster:
     redis = None
 
     def __init__(self, name, time, ttl, redis):
-        if not re.fullmatch(DATETIME_REGEXP, time):
-            raise
+        # if not re.fullmatch(DATETIME_REGEXP, time):
+        #     raise
         self.name = name
         self.time = time
         self.ttl = ttl
@@ -30,6 +31,7 @@ class Toaster:
 
     @classmethod
     def search(cls, now):
+        print("here")
         corresponding_toastors = []
         all_keys = cls.redis.keys
         for key in all_keys:
@@ -41,3 +43,7 @@ class Toaster:
     @classmethod
     def call(self):
         notification.notify(title="toaster", message=self.name, timeout=self.ttl)
+
+
+instance = Toaster("name", "2022", "20", redis.Redis(host="localhost", port=6379, db=0))
+print(instance.search())
