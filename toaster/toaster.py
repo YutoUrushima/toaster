@@ -34,7 +34,9 @@ class Toaster:
     def search(cls):
         current_time = datetime.datetime.now()
         corresponding_toastors = []
-        all_keys = cls.redis.keys()
+        all_keys = (
+            cls.redis.keys()
+        )  # DOCS says "Don't use KEYS in your regular application code." However, the number of records is not large and this is not a command that is struck in parallel.
         for key in all_keys:
             decoded_key = key.decode("utf-8")
             if cls.redis.type(decoded_key).decode("utf-8") != "hash":
