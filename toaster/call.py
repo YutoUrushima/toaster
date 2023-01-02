@@ -1,5 +1,4 @@
 from toaster import Toaster
-import datetime
 from time import sleep
 import schedule
 

@@ -1,5 +1,7 @@
 from plyer import notification
 import re
+import datetime
+import redis
 
 DATETIME_REGEXP = (
     r"\d{4}\s(0[1-9]|1[0-2])\s(0[1-9]|[12]\d|3[01])\s(0[1-9]|1\d|2[0-3])\s[0-5]\d"
@@ -29,13 +31,24 @@ class Toaster:
         return cls.redis.hget(f"Toast:{name}", key)
 
     @classmethod
-    def search(cls, now):
+    def search(cls):
+        current_time = datetime.datetime.now()
         corresponding_toastors = []
-        all_keys = cls.redis.keys
+        all_keys = cls.redis.keys()
         for key in all_keys:
-            time = cls.redis.hget(key, "time")
-            if time == now:
-                corresponding_toastors.append(key)
+            decoded_key = key.decode("utf-8")
+            if cls.redis.type(decoded_key).decode("utf-8") != "hash":
+                continue
+            toast_time = cls.redis.hget(decoded_key, "time").decode("utf-8").split(" ")
+            encoded_toast_time = datetime.datetime(
+                int(toast_time[0]),
+                int(toast_time[1]),
+                int(toast_time[2]),
+                int(toast_time[3]),
+                int(toast_time[4]),
+            )
+            if encoded_toast_time == current_time:
+                corresponding_toastors.append(decoded_key)
         return corresponding_toastors
 
     @classmethod
