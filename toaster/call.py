@@ -15,6 +15,8 @@ def call():
         notification.notify(
             title="toaster", message=toast_dict["name"], timeout=toast_dict["ttl"]
         )
+        print(f'Toast called: {toast_dict["name"]}')
+        toaster.delete(toast)
 
 
 schedule.every().minute.at(":00").do(call)

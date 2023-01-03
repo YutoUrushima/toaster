@@ -37,3 +37,7 @@ class Toaster:
             if encoded_toast_time == current_time:
                 corresponding_toastors.append(decoded_key)
         return corresponding_toastors
+
+    def delete(self, key):
+        self.redis.delete(key)
+        print(f"Toast deleted: {key}")
