@@ -8,6 +8,8 @@ toaster = Toaster()
 
 def call():
     toasts_list = toaster.search()
+    if len(toasts_list) < 1:
+        return
     for toast in toasts_list:
         toast_dict = toaster.fetch(toast)
         notification.notify(
@@ -15,7 +17,7 @@ def call():
         )
 
 
-schedule.every(1).minutes.do(call)
+schedule.every().minute.at(":00").do(call)
 
 while True:
     schedule.run_pending()
