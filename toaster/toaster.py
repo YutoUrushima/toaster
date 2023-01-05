@@ -17,7 +17,7 @@ class Toaster:
         return fetched_info
 
     def search(self):
-        current_time = datetime.datetime.now()
+        current_time = datetime.datetime.now().replace(second=0, microsecond=0)
         corresponding_toastors = []
         all_keys = (
             self.redis.keys()

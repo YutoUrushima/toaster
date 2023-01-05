@@ -13,7 +13,9 @@ def call():
     for toast in toasts_list:
         toast_dict = toaster.fetch(toast)
         notification.notify(
-            title="toaster", message=toast_dict["name"], timeout=toast_dict["ttl"]
+            title="toaster",
+            message=toast_dict["name"].decode("utf-8"),
+            timeout=int(toast_dict["ttl"].decode("utf-8")),
         )
         print(f'Toast called: {toast_dict["name"]}')
         toaster.delete(toast)
