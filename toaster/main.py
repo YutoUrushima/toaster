@@ -1,7 +1,5 @@
 from toast import Toast
 
-INTERVAL = 1 * 100 * 60  # 1 minute
-
 
 def main():
     # When the file is called, Requests the user to enter.
