@@ -13,6 +13,7 @@ class Toaster:
     def fetch(self, key):
         fetched_info = {}
         fetched_info.setdefault("name", self.redis.hget(key, "name"))
+        fetched_info.setdefault("message", self.redis.hget(key, "message"))
         fetched_info.setdefault("ttl", self.redis.hget(key, "ttl"))
         return fetched_info
 
