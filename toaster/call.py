@@ -17,7 +17,7 @@ def call():
                 message=toast_dict["message"].decode("utf-8"),
                 timeout=int(toast_dict["ttl"].decode("utf-8")),
             )
-            print(f'Toast called: {toast_dict["name"]}')
+            print(f'Toast called: {toast_dict["name"].decode("utf-8")}')
             toaster.delete(toast)
     except ValueError:
         print(
