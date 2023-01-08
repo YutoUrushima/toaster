@@ -8,8 +8,6 @@ DATETIME_REGEXP = (
 LOCALHOST = "localhost"
 PORT = 6379
 DB = 0
-# TODAY_REGEXP = r"today\s(0[1-9]|1\d|2[0-3])\s[0-5]\d"
-# TOMORROW_REGEXP = r"tomorrow\s(0[1-9]|1\d|2[0-3])\s[0-5]\d"
 
 
 class Toast:
