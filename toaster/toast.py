@@ -13,16 +13,16 @@ TTL_REGEXP = r"\d?\d"
 class Toast:
     def __init__(self, name, message, time, ttl):
         if not name:
-            print("Please enter some characters as a name.")
+            print("ERROR: Please enter some characters as a name.")
             sys.exit()
         if not re.fullmatch(DATETIME_REGEXP, time):
             print(
-                "Date and time format is incorrect. Please enter as in the example. ex) January 1, 2023 at 21:00 => 2023 01 01 21 00"
+                "ERROR: Date and time format is incorrect. Please enter as in the example. ex) January 1, 2023 at 21:00 => 2023 01 01 21 00"
             )
             sys.exit()
         if not re.fullmatch(TTL_REGEXP, ttl):
             print(
-                "The time for the toast to stay alive format is incorrect, please enter 0 ~ 99."
+                "ERROR: The time for the toast to stay alive format is incorrect, please enter 0 ~ 99."
             )
             sys.exit()
 
@@ -40,7 +40,11 @@ class Toast:
         )
 
     def register(self):
-        self.redis.hset(f"Toast:{self.name}", "name", self.name)
-        self.redis.hset(f"Toast:{self.name}", "message", self.message)
-        self.redis.hset(f"Toast:{self.name}", "time", self.time)
-        self.redis.hset(f"Toast:{self.name}", "ttl", self.ttl)
+        try:
+            self.redis.hset(f"Toast:{self.name}", "name", self.name)
+            self.redis.hset(f"Toast:{self.name}", "message", self.message)
+            self.redis.hset(f"Toast:{self.name}", "time", self.time)
+            self.redis.hset(f"Toast:{self.name}", "ttl", self.ttl)
+        except redis.exceptions.ConnectionError:
+            print("ERROR: Cannot connect to Redis. Please check your settings.")
+            sys.exit()
