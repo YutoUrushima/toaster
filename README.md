@@ -36,10 +36,11 @@ Reminder for Windows
 ```
 
 5. If the toaster registration is successful, a toast notification appears at the set time.
+![スクリーンショット_20221222_201528](https://user-images.githubusercontent.com/56684832/211191421-ee8b3229-36d3-478b-81e5-97c5ecbb5409.png)
 
 ## Note
 
-1. exec_toaster.bat describes to call `call.py` like `python %homepath%\works\call.py`, so rewrite this path accordingly.
-2. The Redis server configuration is written in `setting.json`, so rewrite this if you want to change it.
-3. Windows seems to ignore the time set in "time for the toast to stay alive", so adjust the time in the settings.<br/>
+- exec_toaster.bat describes to call `call.py` like `python %homepath%\works\call.py`, so rewrite this path accordingly.
+- The Redis server configuration is written in `setting.json`, so rewrite this if you want to change it.
+- Windows seems to ignore the time set in "time for the toast to stay alive", so adjust the time in the settings.<br/>
    Reference: https://github.com/kivy/plyer/issues/503
